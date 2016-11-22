@@ -139,7 +139,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource.clip = m_JumpSound;
             m_AudioSource.Play();
         }
-
+			
 
         private void ProgressStepCycle(float speed)
         {
@@ -255,5 +255,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
+
     }
 }
