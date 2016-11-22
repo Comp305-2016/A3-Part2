@@ -12,8 +12,8 @@ public class GameController : MonoBehaviour {
 	public Text LivesLabel;
 	public Text ScoreLabel;
 	public Text GameOverLabel; 
-	public Text FinalScoreLabel; 
-	public Button RestartButton; 
+	//public Text FinalScoreLabel; 
+	//public Button RestartButton; 
 	public GameObject Player; 
 	public GameObject Enemy; 
 
@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour {
 		set {
 			this._livesValue = value;
 			if (this._livesValue <= 0) {
-				this._gameOver (); 
+				//this._gameOver (); 
 			} else {
 				this.LivesLabel.text = "Lives: " + this._livesValue;
 			}
@@ -47,10 +47,10 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.LivesValue = 5; 
-		this.ScoreValue = 0; 
+		this.ScoreValue = 5; 
 		this.GameOverLabel.gameObject.SetActive (false);
-		this.FinalScoreLabel.gameObject.SetActive (false);
-		this.RestartButton.gameObject.SetActive (false);
+		//this.FinalScoreLabel.gameObject.SetActive (false);
+		//this.RestartButton.gameObject.SetActive (false);
 	}
 
 	// Update is called once per frame
@@ -58,24 +58,12 @@ public class GameController : MonoBehaviour {
 
 	}
 
-	//Method displays final score and restart button once game is over 
-	private void _gameOver(){
-		this.GameOverLabel.gameObject.SetActive (true); 
-		this.FinalScoreLabel.text = "FINAL SCORE: " + this.ScoreValue; 
-		this.FinalScoreLabel.gameObject.SetActive (true); 
-		this.RestartButton.gameObject.SetActive (true); 
-
-
-		//will not be displayed on screen 
-		this.ScoreLabel.gameObject.SetActive (false); 
-		this.LivesLabel.gameObject.SetActive (false); 
-	}
-
-
-
-	//Method restarts the game when player clicks on the restart button 
-	public void RestartGameButton_Click() {
-		SceneManager.LoadScene ("Game");
+	//Method for when Player collides with the enemy, will take away one life if hit and will add score if player passes the enemy
+	private void OnTriggerEnter(Collider other) {
+		if (other.gameObject.CompareTag ("Enemy")) {
+			this.LivesValue -= 1;
+		}
+			
 	}
 		
 }
