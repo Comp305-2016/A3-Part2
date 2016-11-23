@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour {
 	//Private Variables 
 	private int _livesValue; 
-	private int _scoreValue; 
+	private int _scoreValue;
+    private int _keyValue;
 
 	[Header("UI Objects")]
 	public Text LivesLabel;
 	public Text ScoreLabel;
+    public Text KeyLabel;
 	public Text GameOverLabel; 
 	public Text FinalScoreLabel; 
 	public Button RestartButton; 
@@ -25,7 +27,7 @@ public class GameController : MonoBehaviour {
 		set {
 			this._livesValue = value;
 			if (this._livesValue <= 0) {
-				this._gameOver (); 
+				this.EndMenu(); 
 			} else {
 				this.LivesLabel.text = "Lives: " + this._livesValue;
 			}
@@ -42,15 +44,29 @@ public class GameController : MonoBehaviour {
 			this.ScoreLabel.text = "Score: " + this._scoreValue;
 		}
 	}
+    public int KeyValue
+    {
+        get
+        {
+            return this._keyValue;
+        }
 
+        set
+        {
+            this._keyValue = value;
+            this.KeyLabel.text = "Key(s) Needed: " + this._keyValue;
+        }
+    }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		this.LivesValue = 5; 
-		this.ScoreValue = 0; 
+		this.ScoreValue = 0;
+        this.KeyValue = 2;
+        /*
 		this.GameOverLabel.gameObject.SetActive (false);
 		this.FinalScoreLabel.gameObject.SetActive (false);
-		this.RestartButton.gameObject.SetActive (false);
+		this.RestartButton.gameObject.SetActive (false);*/
 	}
 
 	// Update is called once per frame
@@ -59,7 +75,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	//Method displays final score and restart button once game is over 
-	private void _gameOver(){
+	/*private void _gameOver(){
 		this.GameOverLabel.gameObject.SetActive (true); 
 		this.FinalScoreLabel.text = "FINAL SCORE: " + this.ScoreValue; 
 		this.FinalScoreLabel.gameObject.SetActive (true); 
@@ -68,14 +84,16 @@ public class GameController : MonoBehaviour {
 
 		//will not be displayed on screen 
 		this.ScoreLabel.gameObject.SetActive (false); 
-		this.LivesLabel.gameObject.SetActive (false); 
+		this.LivesLabel.gameObject.SetActive (false);
+        this.KeyLabel.gameObject.SetActive(false);
 	}
+    */
 
 
+    //Method opens gameover scene when player dies
+    public void EndMenu()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
 
-	//Method restarts the game when player clicks on the restart button 
-	public void RestartGameButton_Click() {
-		SceneManager.LoadScene ("Game");
-	}
-		
 }

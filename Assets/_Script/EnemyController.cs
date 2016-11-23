@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class EnemyController : MonoBehaviour {
 
 	//PUBLIC INSTANCE VARIABLES
@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour {
 
 	public int directionSwitch;
 	public GameController gamecontroller;
+
+    public AudioSource hurtSound;
 
 	//PRIVATE INSTANCE VARIABLES
 	private Transform _transform;
@@ -73,11 +75,17 @@ public class EnemyController : MonoBehaviour {
 		}
 
 	}
+    //Method opens gameover scene when player dies;
+    public void EndMenu()
+    {
+        SceneManager.LoadScene("GameOverScene");
+    }
 
-	void OnTriggerEnter(Collider other){
+    void OnTriggerEnter(Collider other){
 
 		if(other.gameObject.CompareTag("Player")){
 			this.gamecontroller.LivesValue -= 1;
+            this.hurtSound.Play();
 		}
 	}
 		
